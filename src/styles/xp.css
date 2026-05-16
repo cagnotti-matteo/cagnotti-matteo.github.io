@@ -1,7 +1,8 @@
 :root {
-  font-family: Tahoma, Verdana, Arial, sans-serif;
-  color: #111;
-  background: #3a6ea5;
+  font-family:
+    "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  color: #000;
+  background: #fff;
 }
 
 * {
@@ -18,8 +19,18 @@ body {
   overflow: hidden;
 }
 
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
 a {
-  color: #0046d5;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
 .desktop {
@@ -28,51 +39,71 @@ a {
   height: 100vh;
   overflow: hidden;
   background:
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.24), transparent 24%),
-    linear-gradient(135deg, #4d8ed8, #174f9a 55%, #0c3471);
+    linear-gradient(#e7e7e7 1px, transparent 1px),
+    linear-gradient(90deg, #e7e7e7 1px, transparent 1px),
+    #fff;
+  background-size: 24px 24px;
+}
+
+.desktop::before {
+  content: "MATTEO CAGNOTTI";
+  position: absolute;
+  left: 24px;
+  bottom: 58px;
+  z-index: 0;
+  color: #000;
+  font-size: clamp(48px, 10vw, 160px);
+  font-weight: 900;
+  letter-spacing: -0.09em;
+  line-height: 0.78;
+  opacity: 0.075;
+  pointer-events: none;
+  user-select: none;
 }
 
 .desktop-icons {
   position: absolute;
   top: 24px;
   left: 24px;
-  display: grid;
-  gap: 18px;
   z-index: 1;
+  display: grid;
+  gap: 8px;
 }
 
 .desktop-icon {
-  width: 92px;
-  padding: 6px;
-  border: 1px solid transparent;
-  background: transparent;
-  color: white;
-  text-align: center;
-  text-shadow: 1px 1px 2px #000;
+  width: 126px;
+  padding: 7px 8px;
+  border: 1px solid #000;
+  border-radius: 0;
+  background: #fff;
+  color: #000;
+  text-align: left;
   cursor: pointer;
+  box-shadow: 4px 4px 0 #000;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .desktop-icon:hover,
-.desktop-icon:focus {
-  border-color: rgba(255, 255, 255, 0.65);
-  background: rgba(255, 255, 255, 0.16);
+.desktop-icon:focus-visible {
+  background: #000;
+  color: #fff;
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
+  outline: none;
 }
 
 .desktop-icon-image {
-  display: block;
-  font-size: 32px;
-  line-height: 1;
-  margin-bottom: 4px;
+  display: none;
 }
 
 .window {
   height: 100%;
-  border: 2px solid #0a246a;
-  border-radius: 7px 7px 3px 3px;
-  background: #ece9d8;
-  box-shadow:
-    2px 2px 0 rgba(0, 0, 0, 0.35),
-    inset 1px 1px 0 rgba(255, 255, 255, 0.8);
+  border: 2px solid #000;
+  border-radius: 0;
+  background: #fff;
+  box-shadow: 8px 8px 0 #000;
   overflow: hidden;
 }
 
@@ -80,87 +111,176 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 31px;
-  padding: 3px 5px 3px 9px;
-  color: white;
-  background: linear-gradient(90deg, #0a246a, #3a6ea5);
+  height: 34px;
+  padding: 0 0 0 10px;
+  color: #fff;
+  background: #000;
+  border-bottom: 2px solid #000;
   cursor: move;
   user-select: none;
 }
 
 .window-title {
-  font-size: 13px;
-  font-weight: 700;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .window-buttons {
   display: flex;
-  gap: 3px;
+  height: 100%;
+  border-left: 2px solid #000;
 }
 
 .window-buttons button {
-  width: 22px;
-  height: 22px;
-  border: 1px solid white;
-  border-radius: 3px;
-  background: linear-gradient(#fefefe, #c9d7ef);
-  color: #0a246a;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-left: 2px solid #000;
+  border-radius: 0;
+  background: #fff;
+  color: #000;
   cursor: pointer;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1;
 }
 
-.window-buttons button:last-child {
-  background: linear-gradient(#f7b39d, #d64b2a);
-  color: white;
+.window-buttons button:first-child {
+  border-left: 0;
+}
+
+.window-buttons button:hover,
+.window-buttons button:focus-visible {
+  background: #000;
+  color: #fff;
+  outline: 2px solid #fff;
+  outline-offset: -5px;
 }
 
 .window-body {
-  height: calc(100% - 31px);
-  padding: 16px;
+  height: calc(100% - 34px);
+  padding: 18px;
   overflow: auto;
-  border-top: 1px solid #fff;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.45;
 }
 
 .window-body h1,
 .window-body h2 {
-  margin-top: 0;
+  margin: 0 0 12px;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.07em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.window-body h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.window-body p {
+  margin: 0 0 12px;
+}
+
+.window-body ul {
+  margin: 12px 0 0;
+  padding-left: 18px;
+}
+
+.window-body li {
+  margin: 6px 0;
+}
+
+.paper-entry {
+  margin: 0 0 12px;
+  padding: 12px;
+  border: 1px solid #000;
+  border-radius: 0;
+  background: #fff;
+  box-shadow: 4px 4px 0 #000;
+}
+
+.paper-entry h3 {
+  margin: 0 0 6px;
+}
+
+.paper-entry p {
+  margin: 0;
+}
+
+.desktop-sticker {
+  position: absolute;
+  right: 28px;
+  bottom: 64px;
+  z-index: 2;
+  padding: 8px 10px;
+  border: 1px solid #000;
+  border-radius: 0;
+  color: #000;
+  background: #fff;
+  box-shadow: 4px 4px 0 #000;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
 }
 
 .taskbar {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 38px;
+  left: 16px;
+  right: 16px;
+  bottom: 14px;
+  z-index: 100000;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 4px 10px;
-  background: linear-gradient(#245edb, #1941a5);
-  color: white;
-  z-index: 100000;
-  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.45);
+  height: 40px;
+  padding: 0;
+  border: 2px solid #000;
+  border-radius: 0;
+  background: #fff;
+  color: #000;
+  box-shadow: 6px 6px 0 #000;
 }
 
 .start-button {
-  height: 30px;
+  height: 100%;
   padding: 0 18px;
-  border: 1px solid #1f6b1f;
-  border-radius: 14px;
-  background: linear-gradient(#57d857, #138313);
-  color: white;
-  font-weight: 700;
-  text-transform: lowercase;
+  border: 0;
+  border-right: 2px solid #000;
+  border-radius: 0;
+  background: #000;
+  color: #fff;
   cursor: pointer;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.start-button:hover,
+.start-button:focus-visible {
+  background: #fff;
+  color: #000;
+  outline: none;
 }
 
 .taskbar-title {
-  font-size: 13px;
-  font-weight: 700;
+  padding: 0 12px;
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 @media (max-width: 760px) {
@@ -171,15 +291,29 @@ a {
   .desktop {
     height: auto;
     min-height: 100vh;
-    padding: 16px 16px 64px;
+    padding: 16px 16px 72px;
     overflow: visible;
+  }
+
+  .desktop::before {
+    top: 18px;
+    bottom: auto;
+    left: 16px;
+    font-size: 48px;
   }
 
   .desktop-icons {
     display: none;
   }
 
+  .window {
+    box-shadow: 5px 5px 0 #000;
+  }
+
   .taskbar {
     position: fixed;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
   }
 }
