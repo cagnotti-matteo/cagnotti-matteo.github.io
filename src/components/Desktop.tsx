@@ -258,7 +258,7 @@ function getContent(kind: WindowKind) {
   target="_blank"
   rel="noreferrer"
 >
-  Skew fractional BM
+   Skew fractional BM 
 </a>
 <span>
   Animated visualisation of fractional-Brownian-like paths, occupation memory,
