@@ -248,35 +248,46 @@ function getContent(kind: WindowKind) {
     );
   }
 
-  if (kind === 'notes') {
-    return (
-      <>
-        <h2>Notes and Visualizations</h2>
-        <p>Informal notes, computations, and things that are not quite papers.</p>
-        <a
-  href="https://cagnotti-matteo.github.io/singular-drift-playground/"
-  target="_blank"
-  rel="noreferrer"
->
-   Skew fractional BM 
-</a>
-<span>
-  Animated visualisation of fractional-Brownian-like paths, occupation memory,
-  and a skew interface.
-</span>
-        <a
-  href="https://cagnotti-matteo.github.io/besov-glitch-field/"
-  target="_blank"
-  rel="noreferrer"
->
-  Besov Glitch Field
-</a>
-<span>
-  — a pixelated drift landscape showing how a rough distributional field becomes visible through mollification.
-</span>
-      </>
-    );
-  }
+if (kind === 'notes') {
+  return (
+    <>
+      <h2>Notes and visualisations</h2>
+      <p>Informal notes, computations, and things that are not quite papers.</p>
+
+      <div className="link-list">
+        <p>
+          <a
+            href="https://cagnotti-matteo.github.io/singular-drift-playground/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Skew fractional BM
+          </a>
+          <span>
+            {' '}
+            — animated visualisation of fractional-Brownian-like paths,
+            occupation memory, and a skew interface.
+          </span>
+        </p>
+
+        <p>
+          <a
+            href="https://cagnotti-matteo.github.io/besov-glitch-field/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Besov Glitch Field
+          </a>
+          <span>
+            {' '}
+            — pixelated drift landscape showing how a rough distributional field
+            becomes visible through mollification.
+          </span>
+        </p>
+      </div>
+    </>
+  );
+}
 
   return (
     <>
