@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Window from './Window';
 
 type WindowKind = 'about' | 'research' | 'papers' | 'notes' | 'contact';
@@ -27,8 +27,8 @@ const windowTemplates: WindowTemplate[] = [
   {
     kind: 'about',
     title: 'About',
-    width: 420,
-    height: 260,
+    width: 700,
+    height: 350,
   },
   {
     kind: 'research',
@@ -39,8 +39,8 @@ const windowTemplates: WindowTemplate[] = [
   {
     kind: 'papers',
     title: 'Papers',
-    width: 560,
-    height: 320,
+    width: 620,
+    height: 360,
   },
   {
     kind: 'notes',
@@ -57,18 +57,18 @@ const windowTemplates: WindowTemplate[] = [
 ];
 
 const initialWindows: WindowInstance[] = [
-{
-  instanceId: 'about-1',
-  kind: 'about',
-  title: 'About',
-  x: 330,
-  y: 120,
-  width: 700,
-  height: 350,
-  z: 10,
-  minimized: false,
-  maximized: false,
-},
+  {
+    instanceId: 'about-1',
+    kind: 'about',
+    title: 'About',
+    x: 330,
+    y: 120,
+    width: 700,
+    height: 350,
+    z: 10,
+    minimized: false,
+    maximized: false,
+  },
   {
     instanceId: 'research-1',
     kind: 'research',
@@ -87,8 +87,8 @@ const initialWindows: WindowInstance[] = [
     title: 'Papers',
     x: 160,
     y: 380,
-    width: 560,
-    height: 320,
+    width: 620,
+    height: 360,
     z: 3,
     minimized: false,
     maximized: false,
@@ -106,34 +106,57 @@ const initialWindows: WindowInstance[] = [
     maximized: false,
   },
 ];
-function getContent(kind: WindowKind) {
- if (kind === 'about') {
-  return (
-    <div className="about-layout">
-      <div className="about-copy">
-        <h1>Matteo Cagnotti</h1>
-        <p>
-          I am a second-year PhD student in Modeling and Data Science under the
-          supervision of Elena Issoglio at the University of Turin.
-        </p>
-        <p>
-          My research is about the numerical approximation of stochastic
-          differential equations with singular drift, either through rough
-          martingale problems for Brownian-noise SDEs or through regularization
-          by noise techniques for fractional Brownian-noise SDEs.
-        </p>
-        <p>
-          During the spring of 2026 I will be working in collaboration with
-          Rémi Catellier while visiting Université Côte d&apos;Azur, Nice.
-        </p>
-      </div>
 
-      <figure className="about-photo">
-        <img src="/images/matteo.jpg" alt="Matteo Cagnotti" />
-      </figure>
-    </div>
-  );
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia('(max-width: 760px)');
+
+    function update() {
+      setIsMobile(query.matches);
+    }
+
+    update();
+    query.addEventListener('change', update);
+
+    return () => {
+      query.removeEventListener('change', update);
+    };
+  }, []);
+
+  return isMobile;
 }
+
+function getContent(kind: WindowKind) {
+  if (kind === 'about') {
+    return (
+      <div className="about-layout">
+        <div className="about-copy">
+          <h1>Matteo Cagnotti</h1>
+          <p>
+            I am a second-year PhD student in Modeling and Data Science under
+            the supervision of Elena Issoglio at the University of Turin.
+          </p>
+          <p>
+            My research is about the numerical approximation of stochastic
+            differential equations with singular drift, either through rough
+            martingale problems for Brownian-noise SDEs or through
+            regularization by noise techniques for fractional Brownian-noise
+            SDEs.
+          </p>
+          <p>
+            During the spring of 2026 I will be working in collaboration with
+            Rémi Catellier while visiting Université Côte d&apos;Azur, Nice.
+          </p>
+        </div>
+
+        <figure className="about-photo">
+          <img src="/images/matteo.jpg" alt="Matteo Cagnotti" />
+        </figure>
+      </div>
+    );
+  }
 
   if (kind === 'research') {
     return (
@@ -159,63 +182,66 @@ function getContent(kind: WindowKind) {
         <h2>Papers</h2>
 
         <article className="paper-entry">
-  <h3>
-    <span className="paper-title">
-      L<sup>p</sup>-sup convergence of the Euler-Maruyama scheme for SDEs with
-      distributional Besov drift
-    </span>
-  </h3>
+          <h3>
+            <span className="paper-title">
+              L<sup>p</sup>-sup convergence of the Euler-Maruyama scheme for
+              SDEs with distributional Besov drift
+            </span>
+          </h3>
 
-  <p>
-    Preprint, 2026. I prove convergence rates in L<sup>p</sup>, for all{' '}
-    <span className="math-inline">p ≥ 2</span>, for the Euler-Maruyama scheme
-    applied to one-dimensional Brownian SDEs with drift in a negative-order
-    Besov space. The proof uses the Yamada-Watanabe approximation technique and
-    gives an explicit L<sup>1</sup>-sup convergence rate.
-  </p>
-
-  <div className="paper-meta">
-    <span>arXiv:2602.02109</span>
-    <span>math.PR</span>
-    <span> submitted 2 Feb 2026</span>
-  </div>
-
-  <div className="paper-links">
-    <a
-      href="https://arxiv.org/abs/2602.02109"
-      target="_blank"
-      rel="noreferrer"
-    >
-      arXiv
-    </a>
-    <a
-      href="https://arxiv.org/pdf/2602.02109"
-      target="_blank"
-      rel="noreferrer"
-    >
-      PDF
-    </a>
-    <a
-      href="https://doi.org/10.48550/arXiv.2602.02109"
-      target="_blank"
-      rel="noreferrer"
-    >
-      DOI
-    </a>
-  </div>
-</article>
-
-        <article className="paper-entry">
-          <h3>Martingale Problems with Distributional Drift: Convergence of the
-Euler Scheme</h3>
           <p>
-            Work in progress. check back later for updates!
+            Preprint, 2026. I prove convergence rates in L<sup>p</sup>, for
+            all <span className="math-inline">p ≥ 2</span>, for the
+            Euler-Maruyama scheme applied to one-dimensional Brownian SDEs with
+            drift in a negative-order Besov space. The proof uses the
+            Yamada-Watanabe approximation technique and gives an explicit L
+            <sup>1</sup>-sup convergence rate.
           </p>
+
+          <div className="paper-meta">
+            <span>arXiv:2602.02109</span>
+            <span>math.PR</span>
+            <span>submitted 2 Feb 2026</span>
+          </div>
+
+          <div className="paper-links">
+            <a
+              href="https://arxiv.org/abs/2602.02109"
+              target="_blank"
+              rel="noreferrer"
+            >
+              arXiv
+            </a>
+            <a
+              href="https://arxiv.org/pdf/2602.02109"
+              target="_blank"
+              rel="noreferrer"
+            >
+              PDF
+            </a>
+            <a
+              href="https://doi.org/10.48550/arXiv.2602.02109"
+              target="_blank"
+              rel="noreferrer"
+            >
+              DOI
+            </a>
+          </div>
         </article>
+
         <article className="paper-entry">
-          <h3>Numerical Schemes for Skew Fractional Brownian motion</h3>
+          <h3>
+            Martingale Problems with Distributional Drift: Convergence of the
+            Euler Scheme
+          </h3>
+          <p>Work in progress. Check back later for updates.</p>
+        </article>
+
+        <article className="paper-entry">
+          <h3>Numerical Schemes for Skew Fractional Brownian Motion</h3>
           <p>
-            Work in progress. check back later for updates! (In collaboration with Rémi Catellier.)
+            Work in progress. Check back later for updates. In collaboration
+            with Rémi Catellier.
           </p>
         </article>
       </>
@@ -233,10 +259,12 @@ Euler Scheme</h3>
 
   return (
     <>
-      <h2>Contact me!</h2>
+      <h2>Contact me</h2>
       <p>
         Email:{' '}
-        <a href="mailto:matteo.cagnotti@unito.it">matteo.cagnotti@unito.it</a>
+        <a href="mailto:matteo.cagnotti@unito.it">
+          matteo.cagnotti@unito.it
+        </a>
       </p>
       <p>
         GitHub:{' '}
@@ -255,6 +283,7 @@ Euler Scheme</h3>
 export default function Desktop() {
   const [windows, setWindows] = useState<WindowInstance[]>(initialWindows);
   const [nextId, setNextId] = useState(2);
+  const isMobile = useIsMobile();
 
   function getMaxZ(current: WindowInstance[]) {
     return current.length === 0
@@ -358,6 +387,45 @@ export default function Desktop() {
     setNextId((current) => current + 1);
   }
 
+  if (isMobile) {
+    return (
+      <main className="mobile-site">
+        <header className="mobile-header">
+          <p className="mobile-kicker">Matteo Cagnotti</p>
+          <h1>Research</h1>
+          <p>
+            Stochastic differential equations with singular drift, martingale
+            problems, PDE methods, and numerical approximation.
+          </p>
+        </header>
+
+        <nav className="mobile-nav" aria-label="Page sections">
+          {windowTemplates.map((template) => (
+            <a key={template.kind} href={`#${template.kind}`}>
+              {template.title}
+            </a>
+          ))}
+        </nav>
+
+        <div className="mobile-sections">
+          {windowTemplates.map((template) => (
+            <section
+              key={template.kind}
+              id={template.kind}
+              className="mobile-card"
+            >
+              <div className="mobile-card-titlebar">
+                <span>{template.title}</span>
+              </div>
+
+              <div className="mobile-card-body">{getContent(template.kind)}</div>
+            </section>
+          ))}
+        </div>
+      </main>
+    );
+  }
+
   const visibleWindows = windows.filter((window) => !window.minimized);
 
   return (
@@ -391,7 +459,6 @@ export default function Desktop() {
           {getContent(window.kind)}
         </Window>
       ))}
-
 
       <div className="taskbar">
         <button className="start-button">start</button>

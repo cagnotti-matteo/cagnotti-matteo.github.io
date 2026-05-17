@@ -2,7 +2,7 @@
   font-family:
     "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   color: #000;
-  background: #f5f5f0;
+  background: #fff;
 }
 
 * {
@@ -38,23 +38,21 @@ a {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: #ffffff;
+  background: #fff;
 }
 
 .desktop::before {
   content: "MATTEO CAGNOTTI, matteo.cagnotti@unito.it";
   position: absolute;
   left: 24px;
-  bottom: 58px;
+  bottom: 65px;
   z-index: 0;
   color: #000;
-  font-size: clamp(48px, 10vw, 16px);
+  font-size: clamp(46px, 8vw, 118px);
   font-weight: 900;
-  letter-spacing: -0.09em;
-  line-height: 0.78;
-  opacity: 0.045;
-  pointer-events: none;
-  user-select: none;
+  letter-spacing: -0.08em;
+  line-height: 0.82;
+  opacity: 0.095;
 }
 
 .desktop-icons {
@@ -208,6 +206,33 @@ a {
   margin: 6px 0;
 }
 
+.about-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 120px;
+  gap: 16px;
+  align-items: start;
+}
+
+.about-copy {
+  min-width: 0;
+}
+
+.about-photo {
+  margin: 0;
+  width: 120px;
+  border: 1px solid #000;
+  background: #fff;
+  box-shadow: 3px 3px 0 #000;
+}
+
+.about-photo img {
+  display: block;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  filter: none;
+}
+
 .paper-entry {
   margin: 0 0 12px;
   padding: 12px;
@@ -223,6 +248,31 @@ a {
 
 .paper-entry p {
   margin: 0;
+}
+
+.paper-title {
+  display: inline;
+}
+
+.paper-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.paper-meta span {
+  display: inline-block;
+  padding: 3px 6px;
+  border: 1px solid #000;
+  background: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.math-inline {
+  white-space: nowrap;
 }
 
 .paper-links {
@@ -250,23 +300,6 @@ a {
   background: #000;
   color: #fff;
   outline: none;
-}
-
-.desktop-sticker {
-  position: absolute;
-  right: 28px;
-  bottom: 64px;
-  z-index: 2;
-  padding: 8px 10px;
-  border: 1px solid #000;
-  border-radius: 0;
-  color: #000;
-  background: #fff;
-  box-shadow: 4px 4px 0 #000;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  transform: rotate(-2deg);
 }
 
 .taskbar {
@@ -381,100 +414,174 @@ a {
   white-space: nowrap;
 }
 
+/* Mobile version: no draggable windows, no taskbar. */
+
 @media (max-width: 760px) {
   body {
     overflow: auto;
   }
-
-  .desktop {
-    height: auto;
-    min-height: 100vh;
-    padding: 16px 16px 72px;
-    overflow: visible;
-  }
-
-  .desktop::before {
-    top: 18px;
-    bottom: auto;
-    left: 16px;
-    font-size: 48px;
-  }
-
-  .desktop-icons {
-    position: static;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-bottom: 18px;
-  }
-
-  .desktop-icon {
-    width: auto;
-  }
-
-  .window {
-    box-shadow: 5px 5px 0 #000;
-  }
-
-  .window-maximized {
-    top: 12px;
-    left: 12px;
-    right: 12px;
-    bottom: 64px;
-  }
-
-  .desktop-sticker {
-    display: none;
-  }
-
-  .taskbar {
-    position: fixed;
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-  }
-
-  .taskbar-title {
-    display: none;
-  }
-}
-.about-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 120px;
-  gap: 16px;
-  align-items: start;
 }
 
-.about-copy {
-  min-width: 0;
+.mobile-site {
+  min-height: 100vh;
+  padding: 14px;
+  background: #fff;
+  color: #000;
+  font-family:
+    "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }
 
-.about-photo {
+.mobile-header {
+  margin-bottom: 14px;
+  padding: 16px;
+  border: 2px solid #000;
+  background: #fff;
+  box-shadow: 5px 5px 0 #000;
+}
+
+.mobile-kicker {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mobile-header h1 {
+  margin: 0 0 10px;
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: -0.08em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.mobile-header p {
   margin: 0;
-  width: 120px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.mobile-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 8px 0;
+  background: #fff;
+}
+
+.mobile-nav a {
+  display: block;
+  min-height: 42px;
+  padding: 11px 8px;
   border: 1px solid #000;
   background: #fff;
+  color: #000;
+  box-shadow: 3px 3px 0 #000;
+  font-size: 12px;
+  font-weight: 900;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.mobile-nav a:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #000;
+}
+
+.mobile-sections {
+  display: grid;
+  gap: 18px;
+  padding-bottom: 28px;
+}
+
+.mobile-card {
+  border: 2px solid #000;
+  background: #fff;
+  box-shadow: 5px 5px 0 #000;
+  scroll-margin-top: 78px;
+}
+
+.mobile-card-titlebar {
+  display: flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 10px;
+  border-bottom: 2px solid #000;
+  background: #000;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mobile-card-body {
+  padding: 16px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.mobile-card-body h1,
+.mobile-card-body h2 {
+  margin: 0 0 12px;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: -0.07em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.mobile-card-body h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.mobile-card-body p {
+  margin: 0 0 12px;
+}
+
+.mobile-card-body ul {
+  margin: 12px 0 0;
+  padding-left: 18px;
+}
+
+.mobile-card-body li {
+  margin: 6px 0;
+}
+
+.mobile-card-body .about-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.mobile-card-body .about-photo {
+  width: 120px;
+  margin: 0;
+}
+
+.mobile-card-body .about-photo img {
+  width: 120px;
+  height: 120px;
+}
+
+.mobile-card-body .paper-entry {
   box-shadow: 3px 3px 0 #000;
 }
 
-.about-photo img {
-  display: block;
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  filter: none;
+.mobile-card-body .paper-links {
+  gap: 7px;
 }
 
-@media (max-width: 760px) {
-  .about-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .about-photo {
-    width: 120px;
-  }
-
-  .about-photo img {
-    width: 120px;
-    height: 120px;
-  }
+.mobile-card-body .paper-links a {
+  padding: 7px 8px;
+  font-size: 11px;
 }
