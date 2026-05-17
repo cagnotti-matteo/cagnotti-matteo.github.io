@@ -251,8 +251,19 @@ function getContent(kind: WindowKind) {
   if (kind === 'notes') {
     return (
       <>
-        <h2>Notes</h2>
+        <h2>Notes and Visualizations</h2>
         <p>Informal notes, computations, and things that are not quite papers.</p>
+        <a
+  href="https://cagnotti-matteo.github.io/singular-drift-playground/"
+  target="_blank"
+  rel="noreferrer"
+>
+  Skew fractional BM
+</a>
+<span>
+  Animated visualisation of fractional-Brownian-like paths, occupation memory,
+  and a skew interface.
+</span>
       </>
     );
   }
