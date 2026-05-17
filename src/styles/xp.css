@@ -38,17 +38,17 @@ a {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: #f5f5f0;
+  background: #ffffff;
 }
 
 .desktop::before {
-  content: "MATTEO CAGNOTTI";
+  content: "MATTEO CAGNOTTI, matteo.cagnotti@unito.it";
   position: absolute;
   left: 24px;
   bottom: 58px;
   z-index: 0;
   color: #000;
-  font-size: clamp(48px, 10vw, 160px);
+  font-size: clamp(48px, 10vw, 16px);
   font-weight: 900;
   letter-spacing: -0.09em;
   line-height: 0.78;
@@ -435,5 +435,46 @@ a {
 
   .taskbar-title {
     display: none;
+  }
+}
+.about-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 120px;
+  gap: 16px;
+  align-items: start;
+}
+
+.about-copy {
+  min-width: 0;
+}
+
+.about-photo {
+  margin: 0;
+  width: 120px;
+  border: 1px solid #000;
+  background: #fff;
+  box-shadow: 3px 3px 0 #000;
+}
+
+.about-photo img {
+  display: block;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  filter: none;
+}
+
+@media (max-width: 760px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .about-photo {
+    width: 120px;
+  }
+
+  .about-photo img {
+    width: 120px;
+    height: 120px;
   }
 }

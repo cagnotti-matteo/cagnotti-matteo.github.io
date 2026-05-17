@@ -57,18 +57,18 @@ const windowTemplates: WindowTemplate[] = [
 ];
 
 const initialWindows: WindowInstance[] = [
-  {
-    instanceId: 'about-1',
-    kind: 'about',
-    title: 'About',
-    x: 72,
-    y: 72,
-    width: 420,
-    height: 260,
-    z: 1,
-    minimized: false,
-    maximized: false,
-  },
+{
+  instanceId: 'about-1',
+  kind: 'about',
+  title: 'About',
+  x: 330,
+  y: 120,
+  width: 700,
+  height: 350,
+  z: 10,
+  minimized: false,
+  maximized: false,
+},
   {
     instanceId: 'research-1',
     kind: 'research',
@@ -106,24 +106,34 @@ const initialWindows: WindowInstance[] = [
     maximized: false,
   },
 ];
-
 function getContent(kind: WindowKind) {
-  if (kind === 'about') {
-    return (
-      <>
+ if (kind === 'about') {
+  return (
+    <div className="about-layout">
+      <div className="about-copy">
         <h1>Matteo Cagnotti</h1>
-        <p>I am a PhD student in mathematics at the University of Turin.</p>
         <p>
-          My research is about stochastic differential equations with singular
-          drift, martingale problems, PDE methods, and numerical approximation.
+          I am a second-year PhD student in Modeling and Data Science under the
+          supervision of Elena Issoglio at the University of Turin.
         </p>
         <p>
-          This page is a small desktop for my papers, talks, notes, and related
-          mathematical debris.
+          My research is about the numerical approximation of stochastic
+          differential equations with singular drift, either through rough
+          martingale problems for Brownian-noise SDEs or through regularization
+          by noise techniques for fractional Brownian-noise SDEs.
         </p>
-      </>
-    );
-  }
+        <p>
+          During the spring of 2026 I will be working in collaboration with
+          Rémi Catellier while visiting Université Côte d&apos;Azur, Nice.
+        </p>
+      </div>
+
+      <figure className="about-photo">
+        <img src="/images/matteo.jpg" alt="Matteo Cagnotti" />
+      </figure>
+    </div>
+  );
+}
 
   if (kind === 'research') {
     return (
@@ -131,15 +141,12 @@ function getContent(kind: WindowKind) {
         <h2>Research</h2>
         <p>
           I study SDEs whose drift is too singular to be interpreted pointwise.
-          The main tools are martingale problems, backward Kolmogorov equations,
-          Besov-Hölder estimates, and weak stability arguments.
         </p>
 
         <ul>
           <li>Martingale problems with distributional drift</li>
           <li>Backward PDEs with rough coefficients</li>
-          <li>Additive functionals along weak solutions</li>
-          <li>Weak error estimates for mollify-discretise schemes</li>
+          <li>Weak error estimates for numerical schemes</li>
           <li>Fractional Brownian variants and local-time-type drifts</li>
         </ul>
       </>
@@ -152,43 +159,64 @@ function getContent(kind: WindowKind) {
         <h2>Papers</h2>
 
         <article className="paper-entry">
-          <h3>Numerical approximation for SDEs with distributional drift</h3>
-          <p>
-            Work in progress. Weak convergence rates for mollify-discretise
-            schemes, using PDE testing and stochastic sewing estimates.
-          </p>
+  <h3>
+    <span className="paper-title">
+      L<sup>p</sup>-sup convergence of the Euler-Maruyama scheme for SDEs with
+      distributional Besov drift
+    </span>
+  </h3>
 
-          <div className="paper-links">
-            <a
-              href="https://arxiv.org/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              arXiv
-            </a>
-            <a href="/papers/distributional-drift-numerics.pdf">PDF</a>
-            <a href="/bib/distributional-drift-numerics.bib">BibTeX</a>
-          </div>
-        </article>
+  <p>
+    Preprint, 2026. I prove convergence rates in L<sup>p</sup>, for all{' '}
+    <span className="math-inline">p ≥ 2</span>, for the Euler-Maruyama scheme
+    applied to one-dimensional Brownian SDEs with drift in a negative-order
+    Besov space. The proof uses the Yamada-Watanabe approximation technique and
+    gives an explicit L<sup>1</sup>-sup convergence rate.
+  </p>
+
+  <div className="paper-meta">
+    <span>arXiv:2602.02109</span>
+    <span>math.PR</span>
+    <span> submitted 2 Feb 2026</span>
+  </div>
+
+  <div className="paper-links">
+    <a
+      href="https://arxiv.org/abs/2602.02109"
+      target="_blank"
+      rel="noreferrer"
+    >
+      arXiv
+    </a>
+    <a
+      href="https://arxiv.org/pdf/2602.02109"
+      target="_blank"
+      rel="noreferrer"
+    >
+      PDF
+    </a>
+    <a
+      href="https://doi.org/10.48550/arXiv.2602.02109"
+      target="_blank"
+      rel="noreferrer"
+    >
+      DOI
+    </a>
+  </div>
+</article>
 
         <article className="paper-entry">
-          <h3>Integrals along martingale-problem solutions</h3>
+          <h3>Martingale Problems with Distributional Drift: Convergence of the
+Euler Scheme</h3>
           <p>
-            Construction of additive functionals extending time integrals
-            against distributional test objects.
+            Work in progress. check back later for updates!
           </p>
-
-          <div className="paper-links">
-            <a
-              href="https://arxiv.org/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              arXiv
-            </a>
-            <a href="/papers/integrals-martingale-problems.pdf">PDF</a>
-            <a href="/bib/integrals-martingale-problems.bib">BibTeX</a>
-          </div>
+        </article>
+        <article className="paper-entry">
+          <h3>Numerical Schemes for Skew Fractional Brownian motion</h3>
+          <p>
+            Work in progress. check back later for updates! (In collaboration with Rémi Catellier.)
+          </p>
         </article>
       </>
     );
@@ -199,21 +227,16 @@ function getContent(kind: WindowKind) {
       <>
         <h2>Notes</h2>
         <p>Informal notes, computations, and things that are not quite papers.</p>
-        <ul>
-          <li>Backward Kolmogorov estimates with negative terminal data</li>
-          <li>Numerical experiments for rough drifts</li>
-          <li>Local time, box drifts, and skew-noise approximations</li>
-        </ul>
       </>
     );
   }
 
   return (
     <>
-      <h2>Contact</h2>
+      <h2>Contact me!</h2>
       <p>
         Email:{' '}
-        <a href="mailto:your.real.email@unito.it">your.real.email@unito.it</a>
+        <a href="mailto:matteo.cagnotti@unito.it">matteo.cagnotti@unito.it</a>
       </p>
       <p>
         GitHub:{' '}
@@ -398,7 +421,7 @@ export default function Desktop() {
           ))}
         </div>
 
-        <div className="taskbar-title">Matteo Cagnotti — Research Desktop</div>
+        <div className="taskbar-title">Matteo Cagnotti</div>
       </div>
     </main>
   );
