@@ -264,6 +264,16 @@ function getContent(kind: WindowKind) {
   Animated visualisation of fractional-Brownian-like paths, occupation memory,
   and a skew interface.
 </span>
+        <a
+  href="https://cagnotti-matteo.github.io/besov-glitch-field/"
+  target="_blank"
+  rel="noreferrer"
+>
+  Besov Glitch Field
+</a>
+<span>
+  — a pixelated drift landscape showing how a rough distributional field becomes visible through mollification.
+</span>
       </>
     );
   }
