@@ -1,43 +1,21 @@
-# Astro Starter Kit: Minimal
+# Personal website
 
-```sh
-npm create astro@latest -- --template minimal
-```
+This is my personal academic website, hosted with GitHub Pages at
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+[https://cagnotti-matteo.github.io](https://cagnotti-matteo.github.io)
 
-## 🚀 Project Structure
+The site contains a short research profile, links to papers/preprints, notes, visualisations, and contact information.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Content
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+The site is organised around small draggable windows. The main sections are:
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+- **About** — short bio and research interests.
+- **Papers** — preprints and publications.
+- **Notes and visualisations** — informal notes, sketches, and interactive mathematical visualisations.
+- **Links** — external academic profiles and related pages.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+One of the linked visualisations is:
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+[Skew fractional BM](https://cagnotti-matteo.github.io/singular-drift-playground/)  
+An animated canvas sketch of fractional-Brownian-like paths, occupation memory, and a skew interface.
