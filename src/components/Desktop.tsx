@@ -44,7 +44,7 @@ const windowTemplates: WindowTemplate[] = [
   },
   {
     kind: 'notes',
-    title: 'Notes',
+    title: 'Notes and Visualisations',
     width: 440,
     height: 280,
   },
