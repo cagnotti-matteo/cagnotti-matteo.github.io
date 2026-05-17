@@ -19,6 +19,8 @@ type WindowInstance = {
   width: number;
   height: number;
   z: number;
+  minimized: boolean;
+  maximized: boolean;
 };
 
 const windowTemplates: WindowTemplate[] = [
@@ -31,25 +33,25 @@ const windowTemplates: WindowTemplate[] = [
   {
     kind: 'research',
     title: 'Research',
-    width: 540,
-    height: 340,
+    width: 560,
+    height: 360,
   },
   {
     kind: 'papers',
     title: 'Papers',
-    width: 520,
-    height: 280,
+    width: 560,
+    height: 320,
   },
   {
     kind: 'notes',
     title: 'Notes',
-    width: 420,
-    height: 260,
+    width: 440,
+    height: 280,
   },
   {
     kind: 'contact',
     title: 'Contact',
-    width: 360,
+    width: 380,
     height: 220,
   },
 ];
@@ -64,6 +66,8 @@ const initialWindows: WindowInstance[] = [
     width: 420,
     height: 260,
     z: 1,
+    minimized: false,
+    maximized: false,
   },
   {
     instanceId: 'research-1',
@@ -71,29 +75,35 @@ const initialWindows: WindowInstance[] = [
     title: 'Research',
     x: 260,
     y: 132,
-    width: 540,
-    height: 340,
+    width: 560,
+    height: 360,
     z: 2,
+    minimized: false,
+    maximized: false,
   },
   {
     instanceId: 'papers-1',
     kind: 'papers',
     title: 'Papers',
     x: 160,
-    y: 360,
-    width: 520,
-    height: 280,
+    y: 380,
+    width: 560,
+    height: 320,
     z: 3,
+    minimized: false,
+    maximized: false,
   },
   {
     instanceId: 'contact-1',
     kind: 'contact',
     title: 'Contact',
-    x: 760,
+    x: 780,
     y: 96,
-    width: 360,
+    width: 380,
     height: 220,
     z: 4,
+    minimized: false,
+    maximized: false,
   },
 ];
 
@@ -147,6 +157,18 @@ function getContent(kind: WindowKind) {
             Work in progress. Weak convergence rates for mollify-discretise
             schemes, using PDE testing and stochastic sewing estimates.
           </p>
+
+          <div className="paper-links">
+            <a
+              href="https://arxiv.org/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              arXiv
+            </a>
+            <a href="/papers/distributional-drift-numerics.pdf">PDF</a>
+            <a href="/bib/distributional-drift-numerics.bib">BibTeX</a>
+          </div>
         </article>
 
         <article className="paper-entry">
@@ -155,6 +177,18 @@ function getContent(kind: WindowKind) {
             Construction of additive functionals extending time integrals
             against distributional test objects.
           </p>
+
+          <div className="paper-links">
+            <a
+              href="https://arxiv.org/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              arXiv
+            </a>
+            <a href="/papers/integrals-martingale-problems.pdf">PDF</a>
+            <a href="/bib/integrals-martingale-problems.bib">BibTeX</a>
+          </div>
         </article>
       </>
     );
@@ -183,7 +217,13 @@ function getContent(kind: WindowKind) {
       </p>
       <p>
         GitHub:{' '}
-        <a href="https://github.com/cagnotti-matteo">cagnotti-matteo</a>
+        <a
+          href="https://github.com/cagnotti-matteo"
+          target="_blank"
+          rel="noreferrer"
+        >
+          cagnotti-matteo
+        </a>
       </p>
     </>
   );
@@ -217,6 +257,54 @@ export default function Desktop() {
     );
   }
 
+  function closeAllWindows() {
+    setWindows([]);
+  }
+
+  function minimizeWindow(instanceId: string) {
+    setWindows((current) =>
+      current.map((window) =>
+        window.instanceId === instanceId
+          ? { ...window, minimized: true, maximized: false }
+          : window,
+      ),
+    );
+  }
+
+  function restoreWindow(instanceId: string) {
+    setWindows((current) => {
+      const maxZ = getMaxZ(current);
+
+      return current.map((window) =>
+        window.instanceId === instanceId
+          ? {
+              ...window,
+              minimized: false,
+              maximized: false,
+              z: maxZ + 1,
+            }
+          : window,
+      );
+    });
+  }
+
+  function toggleMaximizeWindow(instanceId: string) {
+    setWindows((current) => {
+      const maxZ = getMaxZ(current);
+
+      return current.map((window) =>
+        window.instanceId === instanceId
+          ? {
+              ...window,
+              minimized: false,
+              maximized: !window.maximized,
+              z: maxZ + 1,
+            }
+          : window,
+      );
+    });
+  }
+
   function openWindow(kind: WindowKind) {
     const template = windowTemplates.find((item) => item.kind === kind);
 
@@ -237,6 +325,8 @@ export default function Desktop() {
         width: template.width,
         height: template.height,
         z: maxZ + 1,
+        minimized: false,
+        maximized: false,
       };
 
       return [...current, newWindow];
@@ -244,6 +334,8 @@ export default function Desktop() {
 
     setNextId((current) => current + 1);
   }
+
+  const visibleWindows = windows.filter((window) => !window.minimized);
 
   return (
     <main className="desktop">
@@ -260,14 +352,17 @@ export default function Desktop() {
         ))}
       </div>
 
-      {windows.map((window) => (
+      {visibleWindows.map((window) => (
         <Window
           key={window.instanceId}
           title={window.title}
           defaultPosition={{ x: window.x, y: window.y }}
           defaultSize={{ width: window.width, height: window.height }}
           zIndex={window.z}
+          maximized={window.maximized}
           onFocus={() => focusWindow(window.instanceId)}
+          onMinimize={() => minimizeWindow(window.instanceId)}
+          onMaximize={() => toggleMaximizeWindow(window.instanceId)}
           onClose={() => closeWindow(window.instanceId)}
         >
           {getContent(window.kind)}
@@ -277,6 +372,32 @@ export default function Desktop() {
 
       <div className="taskbar">
         <button className="start-button">start</button>
+
+        <button
+          className="taskbar-button"
+          onClick={closeAllWindows}
+          disabled={windows.length === 0}
+        >
+          close all
+        </button>
+
+        <div className="taskbar-tabs" aria-label="Open windows">
+          {windows.map((window) => (
+            <button
+              key={window.instanceId}
+              className={
+                window.minimized
+                  ? 'taskbar-tab taskbar-tab-minimized'
+                  : 'taskbar-tab'
+              }
+              onClick={() => restoreWindow(window.instanceId)}
+              title={window.title}
+            >
+              {window.title}
+            </button>
+          ))}
+        </div>
+
         <div className="taskbar-title">Matteo Cagnotti — Research Desktop</div>
       </div>
     </main>

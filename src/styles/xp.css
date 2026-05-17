@@ -2,7 +2,7 @@
   font-family:
     "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   color: #000;
-  background: #fff;
+  background: #f5f5f0;
 }
 
 * {
@@ -38,11 +38,7 @@ a {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background:
-    linear-gradient(#e7e7e7 1px, transparent 1px),
-    linear-gradient(90deg, #e7e7e7 1px, transparent 1px),
-    #fff;
-  background-size: 24px 24px;
+  background: #f5f5f0;
 }
 
 .desktop::before {
@@ -56,7 +52,7 @@ a {
   font-weight: 900;
   letter-spacing: -0.09em;
   line-height: 0.78;
-  opacity: 0.075;
+  opacity: 0.045;
   pointer-events: none;
   user-select: none;
 }
@@ -105,6 +101,16 @@ a {
   background: #fff;
   box-shadow: 8px 8px 0 #000;
   overflow: hidden;
+}
+
+.window-maximized {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  bottom: 68px;
+  height: auto;
+  z-index: 99999;
 }
 
 .window-titlebar {
@@ -219,6 +225,33 @@ a {
   margin: 0;
 }
 
+.paper-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.paper-links a {
+  display: inline-block;
+  padding: 4px 7px;
+  border: 1px solid #000;
+  background: #fff;
+  color: #000;
+  box-shadow: 2px 2px 0 #000;
+  font-size: 11px;
+  font-weight: 900;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.paper-links a:hover,
+.paper-links a:focus-visible {
+  background: #000;
+  color: #fff;
+  outline: none;
+}
+
 .desktop-sticker {
   position: absolute;
   right: 28px;
@@ -273,7 +306,72 @@ a {
   outline: none;
 }
 
+.taskbar-button {
+  height: 100%;
+  padding: 0 14px;
+  border: 0;
+  border-right: 2px solid #000;
+  border-radius: 0;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.taskbar-button:hover,
+.taskbar-button:focus-visible {
+  background: #000;
+  color: #fff;
+  outline: none;
+}
+
+.taskbar-button:disabled {
+  color: #888;
+  cursor: not-allowed;
+  background: #e7e7e7;
+}
+
+.taskbar-tabs {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  border-right: 2px solid #000;
+}
+
+.taskbar-tab {
+  height: 100%;
+  max-width: 160px;
+  padding: 0 12px;
+  border: 0;
+  border-right: 2px solid #000;
+  border-radius: 0;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+  overflow: hidden;
+  font-size: 11px;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.taskbar-tab:hover,
+.taskbar-tab:focus-visible {
+  background: #000;
+  color: #fff;
+  outline: none;
+}
+
+.taskbar-tab-minimized {
+  background: #e7e7e7;
+}
+
 .taskbar-title {
+  margin-left: auto;
   padding: 0 12px;
   overflow: hidden;
   font-size: 12px;
@@ -303,11 +401,29 @@ a {
   }
 
   .desktop-icons {
-    display: none;
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-bottom: 18px;
+  }
+
+  .desktop-icon {
+    width: auto;
   }
 
   .window {
     box-shadow: 5px 5px 0 #000;
+  }
+
+  .window-maximized {
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    bottom: 64px;
+  }
+
+  .desktop-sticker {
+    display: none;
   }
 
   .taskbar {
@@ -315,5 +431,9 @@ a {
     left: 10px;
     right: 10px;
     bottom: 10px;
+  }
+
+  .taskbar-title {
+    display: none;
   }
 }

@@ -13,7 +13,10 @@ type WindowProps = {
     height: number;
   };
   zIndex: number;
+  maximized: boolean;
   onFocus: () => void;
+  onMinimize: () => void;
+  onMaximize: () => void;
   onClose: () => void;
 };
 
@@ -23,9 +26,40 @@ export default function Window({
   defaultPosition,
   defaultSize,
   zIndex,
+  maximized,
   onFocus,
+  onMinimize,
+  onMaximize,
   onClose,
 }: WindowProps) {
+  if (maximized) {
+    return (
+      <section
+        className="window window-maximized"
+        style={{ zIndex }}
+        onMouseDown={onFocus}
+      >
+        <header className="window-titlebar">
+          <span className="window-title">{title}</span>
+
+          <div className="window-buttons">
+            <button type="button" aria-label="Minimize window" onClick={onMinimize}>
+              –
+            </button>
+            <button type="button" aria-label="Restore window" onClick={onMaximize}>
+              □
+            </button>
+            <button type="button" aria-label="Close window" onClick={onClose}>
+              ×
+            </button>
+          </div>
+        </header>
+
+        <div className="window-body">{children}</div>
+      </section>
+    );
+  }
+
   return (
     <Rnd
       default={{
@@ -44,10 +78,15 @@ export default function Window({
       <section className="window">
         <header className="window-titlebar">
           <span className="window-title">{title}</span>
+
           <div className="window-buttons">
-            <button aria-label="Minimize window">_</button>
-            <button aria-label="Maximize window">□</button>
-            <button aria-label="Close window" onClick={onClose}>
+            <button type="button" aria-label="Minimize window" onClick={onMinimize}>
+              –
+            </button>
+            <button type="button" aria-label="Maximize window" onClick={onMaximize}>
+              □
+            </button>
+            <button type="button" aria-label="Close window" onClick={onClose}>
               ×
             </button>
           </div>
