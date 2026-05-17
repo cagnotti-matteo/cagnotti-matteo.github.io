@@ -288,7 +288,6 @@ if (kind === 'notes') {
     </>
   );
 }
-
   return (
     <>
       <h2>Contact me</h2>
