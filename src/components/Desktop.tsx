@@ -274,9 +274,6 @@ export default function Desktop() {
         </Window>
       ))}
 
-      <div className="desktop-sticker">
-        <span>martingale problem detected</span>
-      </div>
 
       <div className="taskbar">
         <button className="start-button">start</button>
